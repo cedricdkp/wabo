@@ -2,6 +2,8 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\DestinationController;
+use App\Http\Controllers\EventController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -37,4 +39,8 @@ Route::get('/stat', function () {
 Route::get('/login', [AuthController::class, 'showLoginForm'])->name('login');
 Route::get('/register', [AuthController::class, 'showRegisterForm'])->name('register');
 Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
+
+Route::get('/destination/{slug}', [DestinationController::class, 'show'])->name('destination.show');
+Route::get('/evenement/{slug}', [EventController::class, 'show'])->name('event.show');
+
 
