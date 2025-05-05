@@ -3,75 +3,109 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Inscription</title>
+    <title>Inscription - Plateforme Touristique</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link rel="icon" type="image/png" href="{{ asset('asset/favicon.png') }}">
+    <script src="https://accounts.google.com/gsi/client" async defer></script>
+    <style>
+        .bg-benin {
+            background-image: url('{{ asset('asset/ChatGPT Image 31 mars 2025, 15_31_20.webp') }}');
+            background-size: cover;
+            background-position: center;
+        }
+    </style>
 </head>
 <body class="bg-gray-100 flex items-center justify-center min-h-screen">
-    <!-- Barre de navigation fixe -->
-    <div id="navbar" class="fixed top-0 left-0 w-full bg-white shadow-lg py-4 z-50">
-        <div class="container mx-auto flex justify-between items-center px-6">
-            <h1 class="text-2xl font-bold text-green-500">Tourisme Bénin</h1>
-            <nav class="flex items-center space-x-6">
-                <ul class="flex space-x-6" id="nav-list">
-                    <li><a href="{{ route('accueil') }}" class="text-black hover:text-green-400 transition-colors">Accueil</a></li>
-                    <li><a href="{{ route('Apropos') }}" class="text-black  hover:text-green-400 transition-colors"> A Propos</a></li>
-                    <li><a href="{{ route('sites') }}" class="text-black  hover:text-green-400 transition-colors">Sites Touristiques</a></li>
-                    <li><a href="{{ route('evenements') }}" class="text-black  hover:text-green-400 transition-colors">Événements</a></li>
-                    <li><a href="{{ route('contact') }}" class="text-black  hover:text-green-400 transition-colors">Contact</a></li>
-                </ul>
-                
-                <!-- Bouton de connexion amélioré -->
-                <a href="{{ route('login') }}" class="bg-green-600 text-white py-2 px-4 rounded-full hover:bg-green-700 transition-all">Connexion</a>
-            </nav>
+    <div class="w-full max-w-4xl bg-white rounded-lg shadow-xl flex flex-col md:flex-row overflow-hidden">
+        <!-- Section Formulaire -->
+        <div class="w-full md:w-1/2 p-8">
+            <h2 class="text-3xl font-bold text-gray-900 text-center mb-6">Inscription</h2>
+            @if ($errors->any())
+                <div class="mb-4 text-sm text-red-600">
+                    @foreach ($errors->all() as $error)
+                        {{ $error }}<br>
+                    @endforeach
+                </div>
+            @endif
+            <form action="{{ route('register') }}" method="POST" class="space-y-6">
+                @csrf
+                <div>
+                    <label for="name" class="block text-sm font-medium text-gray-700">Nom complet</label>
+                    <div class="mt-1 relative">
+                        <input id="name" name="name" type="text" autocomplete="name" required
+                               class="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-green-500 focus:border-green-500 sm:text-sm"
+                               placeholder="Votre nom" value="{{ old('name') }}">
+                        <i class="fas fa-user absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400"></i>
+                    </div>
+                </div>
+                <div>
+                    <label for="email" class="block text-sm font-medium text-gray-700">Adresse e-mail</label>
+                    <div class="mt-1 relative">
+                        <input id="email" name="email" type="email" autocomplete="email" required
+                               class="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-green-500 focus:border-green-500 sm:text-sm"
+                               placeholder="votre@email.com" value="{{ old('email') }}">
+                        <i class="fas fa-envelope absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400"></i>
+                    </div>
+                </div>
+                <div>
+                    <label for="password" class="block text-sm font-medium text-gray-700">Mot de passe</label>
+                    <div class="mt-1 relative">
+                        <input id="password" name="password" type="password" autocomplete="new-password" required
+                               class="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-green-500 focus:border-green-500 sm:text-sm"
+                               placeholder="••••••••">
+                        <i class="fas fa-lock absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400"></i>
+                    </div>
+                </div>
+                <div>
+                    <label for="password_confirmation" class="block text-sm font-medium text-gray-700">Confirmer le mot de passe</label>
+                    <div class="mt-1 relative">
+                        <input id="password_confirmation" name="password_confirmation" type="password" required
+                               class="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-green-500 focus:border-green-500 sm:text-sm"
+                               placeholder="••••••••">
+                        <i class="fas fa-lock absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400"></i>
+                    </div>
+                </div>
+                <div>
+                    <button type="submit"
+                            class="w-full flex justify-center py-2 px-4 border border-transparent rounded-full shadow-sm text-sm font-medium text-white bg-green-600 hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 transition-all">
+                        S'inscrire
+                    </button>
+                </div>
+            </form>
+            <div class="mt-6">
+                <div class="relative">
+                    <div class="absolute inset-0 flex items-center">
+                        <div class="w-full border-t border-gray-300"></div>
+                    </div>
+                    <div class="relative flex justify-center text-sm">
+                        <span class="px-2 bg-white text-gray-500">Ou s'inscrire avec</span>
+                    </div>
+                </div>
+                <div class="mt-6">
+                    <div id="g_id_onload"
+                         data-client_id="YOUR_GOOGLE_CLIENT_ID"
+                         data-login_uri="{{ route('google.callback') }}"
+                         data-auto_prompt="false">
+                    </div>
+                    <div class="g_id_signin"
+                         data-type="standard"
+                         data-size="large"
+                         data-theme="outline"
+                         data-text="signup_with"
+                         data-shape="rectangular"
+                         data-logo_alignment="left">
+                    </div>
+                </div>
+            </div>
+            <p class="mt-6 text-center text-sm text-gray-600">
+                Déjà un compte ? <a href="{{ route('login') }}" class="font-medium text-green-600 hover:text-green-500">Connectez-vous</a>
+            </p>
+        </div>
+        <!-- Section Image -->
+        <div class="hidden md:block w-full md:w-1/2">
+            <img src="{{ asset('asset/R (1).webp') }}" alt="Village lacustre de Ganvié" class="w-full h-full object-cover" loading="lazy">
         </div>
     </div>
-
-
-
-    <div class="bg-white p-8 rounded shadow-md w-96">
-        <h2 class="text-2xl font-bold text-center mb-6">Inscription</h2>
-
-        @if ($errors->any())
-            <div class="bg-red-100 text-red-700 p-3 rounded mb-4">
-                <ul>
-                    @foreach ($errors->all() as $error)
-                        <li>{{ $error }}</li>
-                    @endforeach
-                </ul>
-            </div>
-        @endif
-
-        <form method="POST" action="{{ route('register') }}">
-            @csrf
-            <div class="mb-4">
-                <label for="name" class="block text-gray-700">Nom</label>
-                <input type="text" id="name" name="name" required class="w-full p-2 border rounded mt-1">
-            </div>
-
-            <div class="mb-4">
-                <label for="email" class="block text-gray-700">Email</label>
-                <input type="email" id="email" name="email" required class="w-full p-2 border rounded mt-1">
-            </div>
-
-            <div class="mb-4">
-                <label for="password" class="block text-gray-700">Mot de passe</label>
-                <input type="password" id="password" name="password" required class="w-full p-2 border rounded mt-1">
-            </div>
-
-            <div class="mb-4">
-                <label for="password_confirmation" class="block text-gray-700">Confirmer le mot de passe</label>
-                <input type="password" id="password_confirmation" name="password_confirmation" required class="w-full p-2 border rounded mt-1">
-            </div>
-
-            <button type="submit" class="w-full bg-green-500 text-white p-2 rounded hover:bg-green-600">
-                S'inscrire
-            </button>
-        </form>
-
-        <p class="mt-4 text-center text-gray-600">
-            Déjà un compte ? <a href="{{ route('login') }}" class="text-blue-500">Se connecter</a>
-        </p>
-    </div>
-
 </body>
 </html>
