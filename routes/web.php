@@ -82,12 +82,12 @@ Route::post('/mot-de-passe/reinitialiser', [LoginRegisterController::class, 'res
 // Route du tableau de bord (protégée)
 Route::middleware(['auth'])->group(function () {
     Route::get('/tableau-de-bord', [DashboardController::class, 'index'])->name('dashboard');
-
     Route::get('/destinations', [DashboardController::class, 'destinations'])->name('destinations');
     Route::get('/planification', [DashboardController::class, 'planification'])->name('planification');
     Route::get('/avis', [DashboardController::class, 'avis'])->name('avis');
     Route::get('/evenements', [DashboardController::class, 'evenements'])->name('evenements');
     Route::get('/reservations', [DashboardController::class, 'reservations'])->name('reservations');
+    Route::post('/reservations/{id}/cancel', [DashboardController::class, 'cancelReservation'])->name('reservations.cancel');
     Route::get('/offres', [DashboardController::class, 'offres'])->name('offres');
     Route::get('/profil', [DashboardController::class, 'profil'])->name('profil');
     Route::get('/reserver', [DashboardController::class, 'reserver'])->name('reserver');

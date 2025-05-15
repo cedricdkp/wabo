@@ -4,9 +4,9 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Offer extends Model
+class Site extends Model
 {
-    protected $fillable = ['provider_id', 'name', 'price', 'description', 'image', 'valid_until'];
+    protected $fillable = ['provider_id', 'name', 'price', 'description', 'image'];
 
     public function provider()
     {
